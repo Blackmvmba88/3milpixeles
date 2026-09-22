@@ -15,7 +15,6 @@ class ImageResizer3000:
     def __init__(self, root):
         self.root = root
         self.root.title("Redimensionar a 3000x3000 px")
-        self.root.geometry("700x750")
         self.root.resizable(True, True)
         
         self.selected_files = []
@@ -23,6 +22,37 @@ class ImageResizer3000:
         self.output_folder = os.path.expanduser("~/Desktop")  # Por defecto guarda en Desktop
         
         self.create_ui()
+        self.configure_initial_window()
+    
+    def configure_initial_window(self):
+        """Abre la app con espacio suficiente para mostrar todos los controles."""
+        self.root.update_idletasks()
+
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        # El contenido completo pide más altura que la ventana antigua de 700x750.
+        # Usamos el tamaño real solicitado por Tkinter y dejamos margen para
+        # barra de menú, Dock/taskbar y bordes de la ventana.
+        requested_width = max(760, self.root.winfo_reqwidth())
+        requested_height = max(880, self.root.winfo_reqheight())
+
+        available_width = max(640, screen_width - 80)
+        available_height = max(640, screen_height - 100)
+
+        window_width = min(requested_width, available_width)
+        window_height = min(requested_height, available_height)
+
+        x = max(0, (screen_width - window_width) // 2)
+        y = max(0, (screen_height - window_height) // 2)
+
+        self.root.geometry(
+            f"{window_width}x{window_height}+{x}+{y}"
+        )
+        self.root.minsize(
+            min(700, window_width),
+            min(820, window_height),
+        )
     
     def create_ui(self):
         # Configurar colores del root
