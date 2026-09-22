@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="3milpixeles app icon concept">
+  <defs>
+    <radialGradient id="bg"><stop stop-color="#32105d"/><stop offset="1" stop-color="#090318"/></radialGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b952ff"/><stop offset="1" stop-color="#641cff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect x="20" y="20" width="984" height="984" rx="160" fill="url(#bg)" stroke="#b952ff" stroke-width="8"/>
+  <g opacity=".25" fill="none" stroke="url(#purple)">
+    <path d="M-100 650C180 180 650 120 1120 350" stroke-width="110"/>
+    <path d="M50 970C270 520 700 400 1090 650" stroke-width="90"/>
+  </g>
+  <g filter="url(#glow)">
+    <g stroke="#6aff43" stroke-width="12" fill="none">
+      <path d="M280 255H745M280 695H745M280 255V695M745 255V695"/>
+    </g>
+    <g fill="#6aff43" stroke="#f4f4ff" stroke-width="8">
+      <rect x="225" y="200" width="60" height="60" rx="12"/>
+      <rect x="715" y="200" width="60" height="60" rx="12"/>
+      <rect x="225" y="665" width="60" height="60" rx="12"/>
+      <rect x="715" y="665" width="60" height="60" rx="12"/>
+    </g>
+    <rect x="330" y="305" width="365" height="320" rx="36" fill="#140830" stroke="#a63dff" stroke-width="15"/>
+    <circle cx="447" cy="407" r="47" fill="#96ff69"/>
+    <path d="M345 600L440 505L530 600Z" fill="#7830dc" stroke="#abff6c" stroke-width="8"/>
+    <path d="M455 600L575 430L690 600Z" fill="#9650ec" stroke="#abff6c" stroke-width="8"/>
+    <path d="M605 410L680 335M635 335H680V380" fill="none" stroke="#6aff43" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="512" y="890" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" fill="#6aff43">3000 × 3000</text>
+  </g>
+</svg>
