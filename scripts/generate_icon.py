@@ -143,7 +143,7 @@ def main():
 
     # Final rounded mask after glow.
     img.putalpha(mask)
-    img.convert("RGB").save(OUT, quality=96)
+    img.save(OUT, optimize=True)
     print(f"Generated {OUT}")
 
 
