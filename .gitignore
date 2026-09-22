@@ -18,6 +18,9 @@ ENV/
 
 # Packaging
 *.dmg
+assets/icon.png
+assets/macos/*.icns
+assets/macos/*.iconset/
 
 # IDE
 .vscode/
