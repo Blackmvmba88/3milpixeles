@@ -111,8 +111,12 @@ El script:
 1. crea un venv aislado de build en `.venv-build`;
 2. instala Pillow y PyInstaller;
 3. ejecuta los tests;
-4. genera `dist/3milpixeles.app`;
-5. crea un DMG con acceso directo a `/Applications`.
+4. regenera el icono desde `scripts/generate_icon.py`;
+5. crea `assets/macos/3milpixeles.icns` con herramientas nativas de macOS;
+6. aplica ese icono a `dist/3milpixeles.app`;
+7. crea un DMG con acceso directo a `/Applications`.
+
+La referencia visual editable del icono vive en `assets/icon.svg`. El flujo completo para futuras IAs/agentes está documentado en `AGENTS.md`.
 
 El resultado queda en:
 
