@@ -10,9 +10,14 @@ build/
 *.egg
 
 # Virtual environments
+.venv/
+.venv-build/
 venv/
 env/
 ENV/
+
+# Packaging
+*.dmg
 
 # IDE
 .vscode/

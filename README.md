@@ -1,177 +1,267 @@
 # 3milpixeles - Image Resizer 3000x3000 px
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Python](https://img.shields.io/badge/python-3.8%2B-brightgreen)
+![macOS](https://img.shields.io/badge/macOS-DMG-black)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-Aplicación de escritorio para redimensionar imágenes a formato cuadrado de 3000x3000 píxeles (1:1) con múltiples modos de ajuste.
+Aplicación de escritorio para redimensionar imágenes a formato cuadrado de **3000x3000 píxeles (1:1)** con varios modos de ajuste.
 
 ## ✨ Características
 
-- 🎨 **Interfaz gráfica moderna** con tema morado y verde neón
-- 📐 **Tres modos de redimensionado**:
-  - **Ajustar**: Mantiene proporciones y añade márgenes blancos si es necesario
-  - **Rellenar**: Recorta la imagen para llenar el cuadrado completo
-  - **Estirar**: Estira la imagen (puede distorsionar)
-- 📁 **Selección múltiple** de archivos de imagen
-- 💾 **Carpeta de destino personalizable** (por defecto: Desktop)
-- ⚙️ **Opción de preservar** archivos originales
-- 📊 **Barra de progreso** durante el procesamiento
-- 🖼️ **Formatos soportados**: PNG, JPG, JPEG, GIF, BMP, TIFF
+- 🎨 Interfaz gráfica con Tkinter.
+- 📐 Tres modos de redimensionado:
+  - **Ajustar**: conserva proporciones y añade márgenes.
+  - **Rellenar**: recorta para llenar el cuadro.
+  - **Estirar**: fuerza exactamente 3000x3000.
+- 📁 Procesamiento de varias imágenes.
+- 💾 Carpeta de destino configurable.
+- 🖼️ PNG, JPG, JPEG, GIF, BMP y TIFF.
+- 🧪 Tests de la lógica de redimensionado.
+- 🐍 Entorno virtual reproducible con `.venv`.
+- 🍎 Build automático de `.app` y `.dmg` para macOS.
+- ⚙️ GitHub Actions para generar el DMG sin tener que empaquetarlo manualmente.
 
-## 📋 Requisitos
+## 📋 Requisitos para desarrollo
 
-- Python 3.8 o superior
-- Pillow (PIL) para procesamiento de imágenes
-- tkinter (generalmente incluido con Python)
+- Python 3.8 o superior.
+- Pillow.
+- Tkinter.
 
-## 🚀 Instalación
+En macOS, una instalación de Python que incluya Tkinter es necesaria para ejecutar la interfaz.
 
-1. **Clonar el repositorio**:
+## 🚀 Instalación recomendada con venv
+
+Clona el repositorio:
+
 ```bash
 git clone https://github.com/Blackmvmba88/3milpixeles.git
 cd 3milpixeles
 ```
 
-2. **Instalar dependencias**:
+Crea el entorno virtual:
+
 ```bash
-pip install -r requirements.txt
+python3 -m venv .venv
 ```
 
-3. **Ejecutar la aplicación**:
+Actívalo:
+
 ```bash
-python3 image_resizer_3000.py
+source .venv/bin/activate
 ```
 
-O hacer el script ejecutable:
+Actualiza pip e instala dependencias:
+
 ```bash
-chmod +x image_resizer_3000.py
-./image_resizer_3000.py
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
+
+Ejecuta la aplicación:
+
+```bash
+python image_resizer_3000.py
+```
+
+Cuando termines:
+
+```bash
+deactivate
+```
+
+## ⚡ Instalación automática en macOS
+
+El repositorio incluye un bootstrap que crea el `.venv`, instala dependencias y deja la aplicación lista:
+
+```bash
+bash scripts/install_macos.sh
+```
+
+Para instalar y abrir inmediatamente:
+
+```bash
+bash scripts/install_macos.sh --run
+```
+
+Después de la primera instalación puedes arrancarla con:
+
+```bash
+bash scripts/run_macos.sh
+```
+
+También hay atajos con Make:
+
+```bash
+make setup
+make run
+make test
+```
+
+## 🍎 Crear una aplicación .app y un DMG
+
+En una Mac puedes construir el instalador localmente con:
+
+```bash
+bash scripts/build_macos.sh
+```
+
+El script:
+
+1. crea un venv aislado de build en `.venv-build`;
+2. instala Pillow y PyInstaller;
+3. ejecuta los tests;
+4. genera `dist/3milpixeles.app`;
+5. crea un DMG con acceso directo a `/Applications`.
+
+El resultado queda en:
+
+```text
+dist/3milpixeles-macos-<arquitectura>.dmg
+```
+
+Por ejemplo, en Apple Silicon normalmente será:
+
+```text
+dist/3milpixeles-macos-arm64.dmg
+```
+
+> El build actual no está firmado con un certificado Apple Developer ID ni notarizado. macOS puede mostrar una advertencia la primera vez que se abre. Para distribución pública conviene añadir firma y notarización.
+
+## 🤖 Generar el DMG automáticamente con GitHub Actions
+
+El workflow `.github/workflows/build-macos.yml` ejecuta tests y genera el instalador en un runner macOS.
+
+Se puede disparar manualmente desde:
+
+```text
+GitHub → Actions → Build macOS DMG → Run workflow
+```
+
+Al terminar, el DMG aparece como artifact del workflow durante 30 días.
+
+También se ejecuta al hacer push a `main`.
+
+### Release automático por tag
+
+Si publicas un tag que empiece con `v`, por ejemplo:
+
+```bash
+git tag v1.1.0
+git push origin v1.1.0
+```
+
+GitHub Actions crea o actualiza el Release correspondiente y adjunta el DMG generado.
 
 ## 📖 Uso
 
-1. **Seleccionar imágenes**: Haz clic en "📁 SELECCIONAR IMÁGENES" para elegir una o varias imágenes
-2. **Elegir modo de redimensionado**: 
-   - 📦 Ajustar dentro (con márgenes si es necesario)
-   - 🔲 Rellenar cuadrado (recorta excedente)
-   - 🎯 Estirar a 3000x3000 (puede deformar)
-3. **Configurar carpeta de destino**: Por defecto guarda en el Desktop, pero puedes cambiarla
-4. **Opciones**: Marca "💾 Mantener imagen original" si no quieres sobrescribir
-5. **Procesar**: Haz clic en "🚀 REDIMENSIONAR A 3000x3000 🚀"
+1. Haz clic en **📁 SELECCIONAR IMÁGENES**.
+2. Elige uno de los modos:
+   - 📦 Ajustar dentro.
+   - 🔲 Rellenar cuadrado.
+   - 🎯 Estirar a 3000x3000.
+3. Selecciona la carpeta de destino.
+4. Decide si quieres conservar el archivo original.
+5. Pulsa **🚀 REDIMENSIONAR A 3000x3000 🚀**.
 
-## 🎯 Modos de Redimensionado
+## 🎯 Modos de redimensionado
 
-### Modo Ajustar (Fit)
-Mantiene la proporción original de la imagen y la centra dentro de un cuadrado de 3000x3000 píxeles. Si la imagen no es cuadrada, se añaden márgenes blancos.
+### Ajustar / Fit
 
-**Ideal para**: Preservar toda la imagen sin recortes
+Mantiene la proporción original de la imagen y la centra dentro de un lienzo de 3000x3000 píxeles.
 
-### Modo Rellenar (Fill)
-Escala la imagen para llenar completamente el cuadrado de 3000x3000 píxeles, recortando las partes que sobresalen.
+### Rellenar / Fill
 
-**Ideal para**: Obtener un cuadrado perfecto sin márgenes
+Escala la imagen para llenar completamente el cuadrado y recorta el excedente.
 
-### Modo Estirar (Stretch)
-Estira o comprime la imagen para ajustarla exactamente a 3000x3000 píxeles sin recortar.
+### Estirar / Stretch
 
-**Ideal para**: Cuando necesitas exactamente esas dimensiones y la distorsión es aceptable
+Ajusta directamente la imagen a 3000x3000 píxeles, aunque pueda deformarla.
 
-## 📁 Estructura de Archivos
+## 📁 Estructura
 
-```
+```text
 3milpixeles/
-├── image_resizer_3000.py   # Aplicación principal
-├── test_resizer.py          # Tests unitarios
-├── requirements.txt         # Dependencias Python
-├── .gitignore              # Archivos ignorados por git
-└── README.md               # Esta documentación
+├── .github/
+│   └── workflows/
+│       └── build-macos.yml
+├── scripts/
+│   ├── build_macos.sh
+│   ├── install_macos.sh
+│   └── run_macos.sh
+├── image_resizer_3000.py
+├── test_resizer.py
+├── requirements.txt
+├── requirements-dev.txt
+├── Makefile
+├── .gitignore
+└── README.md
 ```
 
 ## 🧪 Tests
 
-Ejecutar los tests unitarios:
+Con el venv activo:
+
 ```bash
-python3 test_resizer.py
+python test_resizer.py
 ```
 
-Los tests verifican:
-- ✅ Dimensiones correctas de salida (3000x3000)
-- ✅ Funcionamiento de los tres modos de redimensionado
-- ✅ Guardado correcto de las imágenes
+O:
 
-## 🎨 Captura de Pantalla
+```bash
+make test
+```
 
-La aplicación presenta una interfaz moderna con:
-- Título con gradiente morado (#6B00FF)
-- Botones en verde neón (#00FF88)
-- Fondo oscuro morado (#1a0033)
-- Emojis para mejor UX
+Los tests verifican que los tres modos produzcan imágenes de exactamente 3000x3000 píxeles.
 
 ## 🛠️ Desarrollo
 
-### Dependencias de Desarrollo
+Dependencias normales:
 
 ```bash
-pip install Pillow>=10.0.0
+python -m pip install -r requirements.txt
 ```
 
-### Agregar Nuevas Características
+Dependencias de empaquetado:
 
-El código está estructurado de forma modular:
-- `ImageResizer3000` class: Lógica principal de la aplicación
-- `resize_fit()`: Implementación del modo ajustar
-- `resize_fill()`: Implementación del modo rellenar
-- `resize_stretch()`: Implementación del modo estirar
-- `process_images()`: Procesamiento batch de imágenes
-
-## 📝 Formato de Salida
-
-Las imágenes redimensionadas se guardan con el siguiente formato:
+```bash
+python -m pip install -r requirements-dev.txt
 ```
+
+La clase principal es `ImageResizer3000` y contiene:
+
+- `resize_fit()`
+- `resize_fill()`
+- `resize_stretch()`
+- `process_images()`
+
+## 📝 Formato de salida
+
+Cuando se conserva el original, el nombre generado sigue este patrón:
+
+```text
 {nombre_original}_3000x3000_{timestamp}.png
 ```
 
 Ejemplo:
-```
-foto_vacaciones_3000x3000_20241113_041900.png
+
+```text
+foto_3000x3000_20260922_111600.png
 ```
 
 ## ⚠️ Notas
 
-- Todas las imágenes se convierten a RGB durante el procesamiento
-- Las imágenes se guardan en formato PNG con calidad 95
-- El timestamp asegura que no se sobrescriban archivos existentes
-- La aplicación requiere tkinter, que viene preinstalado en la mayoría de distribuciones de Python
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas! Por favor:
-
-1. Fork el proyecto
-2. Crea tu feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la branch (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible bajo la Licencia MIT.
+- Las imágenes se convierten a RGB durante el procesamiento.
+- La salida se guarda como PNG.
+- Los archivos de build, DMG y entornos virtuales no se versionan.
+- El DMG generado en CI corresponde a la arquitectura del runner macOS usado por GitHub Actions.
 
 ## 👤 Autor
 
 **Blackmvmba88**
 
-- GitHub: [@Blackmvmba88](https://github.com/Blackmvmba88)
-
-## 🙏 Agradecimientos
-
-- Pillow (PIL Fork) por el procesamiento de imágenes
-- Python tkinter por la interfaz gráfica
-- La comunidad open source
+GitHub: [@Blackmvmba88](https://github.com/Blackmvmba88)
 
 ---
-
-⭐ Si este proyecto te resulta útil, considera darle una estrella!
 
 🐛 ¿Encontraste un bug? [Reporta un issue](https://github.com/Blackmvmba88/3milpixeles/issues)
